@@ -3,13 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数据统计 - 瓷韵千年</title>
-    <meta name="description" content="陶瓷工艺数据洞察：全球产量趋势、出口市场分布与烧制工艺关键数据">
+    <title>瓷史文化科普数据馆 - 瓷韵千年</title>
+    <meta name="description" content="交互式中国瓷史文化科普页面，可视化历代窑口、馆藏文物、名窑发展，带你读懂千年陶瓷历史">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="css/common.css">
     <script src="js/charts-config.js"></script>
+    <style>
+        /* 全局基础动效 */
+        * {
+            scroll-behavior: smooth;
+        }
+        .tip-pop {
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.25s ease;
+            pointer-events: none;
+        }
+        .tip-parent:hover .tip-pop {
+            visibility: visible;
+            opacity: 1;
+        }
+        .kiln-modal {
+            transition: opacity 0.3s ease;
+        }
+        .time-btn.active {
+            background: linear-gradient(90deg, #E64A19, #c03c14);
+            color: white;
+            box-shadow: 0 0 12px rgba(230,74,25,0.4);
+        }
+
+        /* 高设计感多层渐变主背景（双层叠加不单调） */
+        .ceramic-gradient-bg {
+            position: relative;
+            background: linear-gradient(145deg, #1a2635 0%, #2c3e50 50%, #38302b 100%);
+            overflow: hidden;
+        }
+        /* 柔光径向光晕装饰层 */
+        .ceramic-gradient-bg::before {
+            content: "";
+            position: absolute;
+            top: -300px;
+            right: -200px;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(230,74,25,0.12) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .ceramic-gradient-bg::after {
+            content: "";
+            position: absolute;
+            bottom: -400px;
+            left: -200px;
+            width: 900px;
+            height: 900px;
+            background: radial-gradient(circle, rgba(115,168,148,0.08) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        /* 页面内容层级高于装饰光晕 */
+        .content-wrap {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 数据卡片立体质感 + hover上浮动效 */
+        .data-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+            transition: all 0.3s cubic-bezier(0.2,0,0.2,1);
+        }
+        .data-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        /* 流光渐变按钮 */
+        .time-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .time-btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        .time-btn:hover::after {
+            left: 100%;
+        }
+
+        /* 古风渐变标题文字 */
+        .gradient-title {
+            background: linear-gradient(90deg, #f0e6d2, #ffffff, #e8c898);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* 古风分割装饰线 */
+        .decor-line {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0 2.5rem;
+        }
+        .decor-line span {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+        }
+        .decor-line i {
+            color: #E64A19;
+            opacity: 0.7;
+        }
+    </style>
     <script>
         tailwind.config = {
             theme: {
@@ -20,10 +139,12 @@
                         glaze: '#4A90E2',
                         fire: '#E64A19',
                         earth: '#D2B48C',
-                        ink: '#2C3E50'
+                        ink: '#2C3E50',
+                        celadon: '#73A894',
+                        blueandwhite: '#1A5299'
                     },
                     fontFamily: {
-                        serif: ['Georgia', 'Times New Roman', 'serif'],
+                        serif: ['Georgia', 'SimSun', 'serif'],
                         sans: ['Inter', 'system-ui', 'sans-serif']
                     }
                 }
@@ -42,8 +163,7 @@
             <div class="hidden md:flex space-x-8">
                 <a href="index.html" class="nav-link hover:text-fire transition-colors">首页</a>
                 <a href="process.html" class="nav-link hover:text-fire transition-colors">烧制流程</a>
-                <a href="data.html" class="nav-link hover:text-fire transition-colors active">数据统计</a>
-                <a href="gallery.html" class="nav-link hover:text-fire transition-colors">成品展示</a>
+                <a href="data.html" class="nav-link hover:text-fire transition-colors active">瓷史数据馆</a>
             </div>
             <button class="md:hidden text-ink text-xl" id="menuToggle"><i class="fa fa-bars"></i></button>
         </div>
@@ -59,111 +179,314 @@
             <div class="flex flex-col space-y-6">
                 <a href="index.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">首页</a>
                 <a href="process.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">烧制流程</a>
-                <a href="data.html" class="mobile-nav-link text-lg hover:text-fire transition-colors active">数据统计</a>
-                <a href="gallery.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">成品展示</a>
+                <a href="data.html" class="mobile-nav-link text-lg hover:text-fire transition-colors active">瓷史数据馆</a>
             </div>
         </div>
     </div>
 
-    <!-- 数据统计 -->
-    <section class="py-20 bg-ink text-white">
-        <div class="container mx-auto px-6">
+    <!-- 主交互科普区域：多层渐变高设计背景 -->
+    <section class="py-20 text-white relative ceramic-gradient-bg">
+        <div class="container mx-auto px-6 content-wrap">
+            <!-- 页面头部科普介绍 + 古风分割装饰 -->
             <div class="text-center mb-16">
-                <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-serif font-bold mb-4">陶瓷工艺数据洞察</h2>
-                <p class="text-lg text-white/70 max-w-2xl mx-auto">通过数据可视化，深入了解陶瓷烧制工艺的发展历程和技术进步</p>
+                <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-serif font-bold mb-4 gradient-title">瓷史文化数据馆</h2>
+                <div class="decor-line">
+                    <span></span>
+                    <i class="fa fa-vase text-lg"></i>
+                    <span></span>
+                </div>
+                <p class="text-lg text-white/70 max-w-3xl mx-auto">
+                    基于全国博物馆、考古窑址、古陶瓷检测公开数据集，带你梳理8000年陶瓷发展脉络。
+                    <br><span class="text-white/50 text-sm">提示：鼠标悬停卡片/图表查看科普，点击窑系柱状块查看名窑详细历史</span>
+                </p>
             </div>
 
+            <!-- 一、核心科普指标卡片（立体悬浮动效） -->
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
+                <!-- 卡片1：古窑口 -->
+                <div class="tip-parent data-card rounded-xl p-6 text-center relative overflow-visible">
                     <div class="text-5xl font-bold text-fire mb-2" id="counter1">0</div>
-                    <p class="text-white/80">年陶瓷烧制历史</p>
+                    <p class="text-white/80">国内登记古窑口遗址</p>
+                    <!-- 悬浮科普弹窗 -->
+                    <div class="tip-pop absolute z-20 left-1/2 -translate-x-1/2 -top-24 w-64 bg-white text-ink p-4 rounded-lg shadow-xl text-sm">
+                        <h4 class="font-bold text-clay mb-2">古窑口遗址科普</h4>
+                        <p>全国考古登记窑址共1420处，分布于河南、浙江、江西、河北等17省，是研究古代制瓷产业的核心实物依据。</p>
+                        <div class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white"></div>
+                    </div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-                    <div class="text-5xl font-bold text-glaze mb-2" id="counter2">0</div>
-                    <p class="text-white/80">℃最高烧制温度</p>
+                <!-- 卡片2：数字化馆藏 -->
+                <div class="tip-parent data-card rounded-xl p-6 text-center relative overflow-visible">
+                    <div class="text-5xl font-bold text-celadon mb-2" id="counter2">0</div>
+                    <p class="text-white/80">馆藏数字化瓷器(万件)</p>
+                    <div class="tip-pop absolute z-20 left-1/2 -translate-x-1/2 -top-24 w-64 bg-white text-ink p-4 rounded-lg shadow-xl text-sm">
+                        <h4 class="font-bold text-celadon mb-2">数字化文物库</h4>
+                        <p>整合故宫、台北故宫、东洋陶瓷美术馆开放高清文物图库，13.6万件带完整年代、窑口、纹饰标签的瓷器标本。</p>
+                        <div class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white"></div>
+                    </div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-                    <div class="text-5xl font-bold text-clay mb-2" id="counter3">0</div>
-                    <p class="text-white/80">道核心工序</p>
+                <!-- 卡片3：瓷史古籍 -->
+                <div class="tip-parent data-card rounded-xl p-6 text-center relative overflow-visible">
+                    <div class="text-5xl font-bold text-blueandwhite mb-2" id="counter3">0</div>
+                    <p class="text-white/80">可检索瓷史古籍文献</p>
+                    <div class="tip-pop absolute z-20 left-1/2 -translate-x-1/2 -top-24 w-64 bg-white text-ink p-4 rounded-lg shadow-xl text-sm">
+                        <h4 class="font-bold text-blueandwhite mb-2">古代陶瓷典籍</h4>
+                        <p>收录《陶记》《景德镇陶录》《南窑笔记》等328部历代制瓷文献，记录原料、工艺、纹饰、外销民俗文化。</p>
+                        <div class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white"></div>
+                    </div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-                    <div class="text-5xl font-bold text-green-400 mb-2" id="counter4">0</div>
-                    <p class="text-white/80">%现代成品合格率</p>
+                <!-- 卡片4：理化检测样本 -->
+                <div class="tip-parent data-card rounded-xl p-6 text-center relative overflow-visible">
+                    <div class="text-5xl font-bold text-earth mb-2" id="counter4">0</div>
+                    <p class="text-white/80">古陶瓷理化检测样本</p>
+                    <div class="tip-pop absolute z-20 left-1/2 -translate-x-1/2 -top-24 w-64 bg-white text-ink p-4 rounded-lg shadow-xl text-sm">
+                        <h4 class="font-bold text-earth mb-2">科技考古数据</h4>
+                        <p>中科院上海硅酸盐研究所数据库，21600件瓷片胎釉成分、烧成温度、矿物扫描数据，用于古瓷断代溯源。</p>
+                        <div class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-                    <h3 class="text-xl font-bold mb-4">全球陶瓷产量趋势</h3>
-                    <div class="h-80"><canvas id="globalProductionChart"></canvas></div>
+            <!-- 二、朝代筛选交互按钮 + 历代窑口趋势图 -->
+            <div class="data-card rounded-xl p-6 mb-12">
+                <div class="flex flex-wrap gap-3 mb-6 items-center justify-between">
+                    <h3 class="text-xl font-bold">历代窑口发掘数量趋势（陶瓷产业兴衰时间线）</h3>
+                    <div class="flex flex-wrap gap-2" id="timeFilterBox">
+                        <button class="time-btn px-4 py-2 rounded border border-white/30 hover:bg-white/10 active" data-val="all">全部时代</button>
+                        <button class="time-btn px-4 py-2 rounded border border-white/30 hover:bg-white/10" data-val="tang">唐五代</button>
+                        <button class="time-btn px-4 py-2 rounded border border-white/30 hover:bg-white/10" data-val="song">两宋</button>
+                        <button class="time-btn px-4 py-2 rounded border border-white/30 hover:bg-white/10" data-val="mingqing">元明清</button>
+                    </div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-                    <h3 class="text-xl font-bold mb-4">中国陶瓷出口市场分布</h3>
-                    <div class="h-80"><canvas id="exportChart"></canvas></div>
+                <div class="h-80"><canvas id="kilnHistoryChart"></canvas></div>
+                <p class="text-white/60 text-sm mt-3"><i class="fa fa-info-circle mr-1"></i>鼠标悬停折线节点，查看对应朝代窑址数量与时代陶瓷特点</p>
+            </div>
+
+            <!-- 三、双栏图表区域 -->
+            <div class="grid md:grid-cols-2 gap-12 mb-12">
+                <!-- 饼图：馆藏朝代分布 -->
+                <div class="data-card rounded-xl p-6">
+                    <h3 class="text-xl font-bold mb-4">馆藏瓷器朝代存量占比</h3>
+                    <div class="h-80"><canvas id="dynastyPieChart"></canvas></div>
+                    <p class="text-white/60 text-sm mt-3"><i class="fa fa-info-circle mr-1"></i>悬停扇形区块，了解该朝代代表性瓷器种类</p>
+                </div>
+                <!-- 柱状图：八大核心窑系馆藏标本对比 -->
+                <div class="data-card rounded-xl p-6">
+                    <h3 class="text-xl font-bold mb-4">八大核心窑系馆藏标本对比</h3>
+                    <div class="h-80"><canvas id="kilnSystemBarChart"></canvas></div>
+                    <p class="text-white/60 text-sm mt-3"><i class="fa fa-hand-pointer-o mr-1"></i>点击柱状条，弹出对应名窑完整历史科普</p>
+                </div>
+            </div>
+
+            <!-- 四、折叠面板：瓷史数据集来源说明（交互展开/收起） -->
+            <div class="data-card rounded-xl p-6 mb-8">
+                <button id="sourceToggle" class="w-full flex justify-between items-center text-left">
+                    <h3 class="text-xl font-bold">本页面数据集来源一览（点击展开）</h3>
+                    <i class="fa fa-chevron-down text-lg transition-transform duration-300" id="sourceIcon"></i>
+                </button>
+                <div id="sourcePanel" class="hidden mt-6 grid md:grid-cols-2 gap-4 text-white/80 text-sm">
+                    <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+                        <h4 class="font-bold text-fire mb-2">国家级博物馆开放库</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>故宫博物院数字文物库（明清官窑）</li>
+                            <li>台北故宫开放数据集（CC-BY开源）</li>
+                            <li>大阪东洋陶瓷美术馆中国古瓷图库</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+                        <h4 class="font-bold text-celadon mb-2">考古与科技数据库</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>中科院上海硅酸盐所古陶瓷检测库</li>
+                            <li>景德镇御窑古陶瓷基因库</li>
+                            <li>全国窑口考古遗址普查数据库</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+                        <h4 class="font-bold text-blueandwhite mb-2">学术开源数据集</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>宋元瓷器5993张标注图像数据集</li>
+                            <li>古陶瓷断代多模态检测数据集</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+                        <h4 class="font-bold text-earth mb-2">文史古籍资料库</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>历代陶瓷工艺古籍全文库</li>
+                            <li>外销陶瓷贸易文史档案</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- 全局弹窗：名窑科普弹窗（点击柱状图触发） -->
+    <div id="kilnModal" class="kiln-modal fixed inset-0 bg-black/70 z-[999] hidden flex items-center justify-center p-4">
+        <div class="bg-white text-ink rounded-xl max-w-lg w-full p-8 relative shadow-2xl border border-gray-100">
+            <button id="closeKilnModal" class="absolute top-4 right-4 text-2xl text-gray-500 hover:text-ink hover:rotate-90 transition-transform"><i class="fa fa-times"></i></button>
+            <h3 id="modalTitle" class="text-2xl font-serif font-bold text-clay mb-4 gradient-title" style="-webkit-background-clip:text; color:transparent; background-image:linear-gradient(90deg,#8B5A2B,#c48b57);"></h3>
+            <div id="modalContent" class="text-gray-700 leading-relaxed"></div>
+        </div>
+    </div>
+
     <!-- 页脚 -->
-    <footer class="bg-ink text-white py-12">
-        <div class="container mx-auto px-6">
+    <footer class="bg-ink text-white py-12 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-gradient-to-r from-fire to-celadon"></div>
+        <div class="container mx-auto px-6 relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center space-x-2 mb-6 md:mb-0">
                     <i class="fa fa-fire text-fire text-2xl"></i>
                     <h2 class="text-2xl font-serif font-bold">瓷韵千年</h2>
                 </div>
                 <div class="flex space-x-6">
-                    <a href="#" class="text-white/70 hover:text-white"><i class="fa fa-weibo text-xl"></i></a>
-                    <a href="#" class="text-white/70 hover:text-white"><i class="fa fa-wechat text-xl"></i></a>
-                    <a href="#" class="text-white/70 hover:text-white"><i class="fa fa-instagram text-xl"></i></a>
+                    <a href="#" class="text-white/70 hover:text-white hover:scale-110 transition-all"><i class="fa fa-weibo text-xl"></i></a>
+                    <a href="#" class="text-white/70 hover:text-white hover:scale-110 transition-all"><i class="fa fa-wechat text-xl"></i></a>
+                    <a href="#" class="text-white/70 hover:text-white hover:scale-110 transition-all"><i class="fa fa-instagram text-xl"></i></a>
                 </div>
             </div>
             <hr class="border-white/20 my-8">
             <div class="text-center text-white/50 text-sm">
-                <p>© 2026 瓷韵千年 - 陶瓷烧制工艺交互展示平台. 保留所有权利.</p>
+                <p>© 2026 瓷韵千年 - 交互式瓷史文化科普平台. 数据集仅供文化科普学习使用.</p>
             </div>
         </div>
     </footer>
 
     <script src="js/common.js"></script>
     <script>
-        // ==================== 计数器动画 ====================
+        // ==================== 1. 数字滚动动画 ====================
         const dataSection = document.querySelector('section');
         const counterObserver = createScrollObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
-                    animateCounter('counter1', 8000);
-                    animateCounter('counter2', 1400);
-                    animateCounter('counter3', 8);
-                    animateCounter('counter4', 95);
+                    animateCounter('counter1', 1420);
+                    animateCounter('counter2', 13.6);
+                    animateCounter('counter3', 328);
+                    animateCounter('counter4', 21600);
                     counterObserver.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.1 });
         counterObserver.observe(dataSection);
 
-        // ==================== 图表初始化 ====================
+        // ==================== 2. 折叠面板交互（数据集来源） ====================
+        const sourceToggle = document.getElementById('sourceToggle');
+        const sourcePanel = document.getElementById('sourcePanel');
+        const sourceIcon = document.getElementById('sourceIcon');
+        sourceToggle.addEventListener('click', ()=>{
+            sourcePanel.classList.toggle('hidden');
+            sourceIcon.classList.toggle('rotate-180');
+        })
+
+        // ==================== 3. 名窑弹窗数据字典（点击柱状图展示科普） ====================
+        const kilnInfo = {
+            "汝窑": {
+                title:"汝窑 · 宋代五大名窑之首",
+                content:"北宋宫廷御用青瓷窑，仅存20余年烧制历史，以天青色开片青瓷闻名，存世完整器物不足百件，被誉为‘青瓷之魁’，窑址位于河南宝丰清凉寺。"
+            },
+            "官窑": {
+                title:"官窑 · 皇家专属御窑",
+                content:"分北宋汴京官窑、南宋修内司/郊坛下官窑，专为皇室烧制礼器，紫口铁足、大开片为典型特征，不流入民间，存世标本稀缺。"
+            },
+            "哥窑": {
+                title:"哥窑 · 金丝铁线传世瓷",
+                content:"宋代龙泉分支窑口，标志性‘金丝铁线’开片纹路，黑胎厚釉，器物造型古朴，历史记载较少，考古完整窑址仍在考证。"
+            },
+            "钧窑": {
+                title:"钧窑 · 入窑一色出窑万彩",
+                content:"河南禹州钧窑，首创铜红窑变釉，打破青瓷单一色调，宋元时期民间与宫廷通用，窑变每一件瓷器纹理独一无二。"
+            },
+            "定窑": {
+                title:"定窑 · 白瓷巅峰刻花窑口",
+                content:"河北曲阳白瓷窑，宋代白瓷代表，以刻花、印花工艺见长，是五大名窑唯一烧制白瓷的窑口，大量器物流通民间。"
+            },
+            "龙泉窑": {
+                title:"龙泉窑 · 千年外销青瓷重镇",
+                content:"浙江龙泉青瓷，分粉青、梅子青两大釉色，宋元海上丝绸之路核心外销瓷器，窑址规模极大，标本留存数量庞大。"
+            },
+            "景德镇窑": {
+                title:"景德镇窑 · 千年瓷都",
+                content:"元代起全国制瓷中心，发明青花瓷，明清皇家御窑所在地，粉彩、五彩、珐琅彩均诞生于此，馆藏标本远超其他所有窑口总和。"
+            },
+            "磁州窑": {
+                title:"磁州窑 · 民间民俗陶瓷代表",
+                content:"河北邯郸民间窑系，白地黑绘、诗文人物纹饰极具生活气息，面向百姓生产，产量巨大，完整反映古代民间瓷文化。"
+            }
+        };
+        const kilnModal = document.getElementById('kilnModal');
+        const closeKilnModal = document.getElementById('closeKilnModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+        // 关闭弹窗
+        closeKilnModal.addEventListener('click', ()=> kilnModal.classList.add('hidden'));
+        kilnModal.addEventListener('click', (e)=>{
+            if(e.target === kilnModal) kilnModal.classList.add('hidden');
+        })
+
+        // ==================== 4. 图表初始化 + 全量交互逻辑 ====================
+        let kilnChart; // 全局存储柱状图实例，用于点击交互
+        let lineChart;  // 全局折线图实例，用于朝代筛选
         document.addEventListener('DOMContentLoaded', function() {
             const C = ChartConfig.colors;
 
-            // 全球产量趋势
-            new Chart(document.getElementById('globalProductionChart'), ChartConfig.createLineConfig(
-                ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+            // 4.1 历代窑口折线图 + 朝代筛选交互
+            const allLabels = ['新石器', '唐', '五代', '北宋', '南宋', '元', '明', '清'];
+            const allData = [86, 245, 112, 378, 321, 264, 296, 189];
+            const filterMap = {
+                all: allData,
+                tang: [0, 245, 112, 0, 0, 0, 0, 0],
+                song: [0, 0, 0, 378, 321, 0, 0, 0],
+                mingqing: [0, 0, 0, 0, 0, 264, 296, 189]
+            }
+            lineChart = new Chart(document.getElementById('kilnHistoryChart'), ChartConfig.createLineConfig(
+                allLabels,
                 [
-                    { label: '中国', data: [2500, 2700, 2900, 3100, 3300, 3200, 3500, 3800, 4100, 4400], borderColor: C.fire, backgroundColor: 'rgba(230,74,25,0.1)', fill: true, tension: 0.4 },
-                    { label: '其他国家', data: [1500, 1600, 1700, 1800, 1900, 1800, 1950, 2100, 2250, 2400], borderColor: C.glaze, backgroundColor: 'rgba(74,144,226,0.1)', fill: true, tension: 0.4 }
+                    { 
+                        label: '已发掘窑口数量', 
+                        data: filterMap.all, 
+                        borderColor: C.celadon, 
+                        backgroundColor: 'rgba(115,168,148,0.15)', 
+                        fill: true, 
+                        tension: 0.3 
+                    }
                 ],
-                '全球陶瓷产量(万吨)',
+                '发掘窑口数量（处）',
                 true
             ));
+            // 折线图hover科普提示
+            lineChart.options.plugins.tooltip.callbacks.label = function(context){
+                const age = allLabels[context.dataIndex];
+                const num = allData[context.dataIndex];
+                let desc = "";
+                if(age === "新石器") desc = "彩陶起源，8000年前原始制陶工艺";
+                if(age === "唐") desc = "唐三彩、越窑青瓷外销兴盛";
+                if(age === "五代") desc = "南北窑系分化，为宋代名窑奠基";
+                if(age === "北宋") desc = "五大名窑诞生，陶瓷工艺巅峰开端";
+                if(age === "南宋") desc = "江南龙泉、官窑快速发展，海上贸易繁荣";
+                if(age === "元") desc = "景德镇成熟烧制青花瓷，外销全球";
+                if(age === "明") desc = "御窑厂设立，彩瓷全面发展";
+                if(age === "清") desc = "粉彩、珐琅彩创新，古代制瓷工艺收官";
+                return `窑址数量：${num}处 | ${desc}`;
+            }
+            // 时代筛选按钮事件
+            document.querySelectorAll('.time-btn').forEach(btn=>{
+                btn.addEventListener('click', ()=>{
+                    document.querySelectorAll('.time-btn').forEach(b=>b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const key = btn.dataset.val;
+                    lineChart.data.datasets[0].data = filterMap[key];
+                    lineChart.update();
+                })
+            })
 
-            // 出口市场分布
-            new Chart(document.getElementById('exportChart'), {
+            // 4.2 馆藏朝代饼图 + hover科普
+            new Chart(document.getElementById('dynastyPieChart'), {
                 type: 'pie',
                 data: {
-                    labels: ['美国', '欧盟', '日本', '韩国', '东南亚', '其他'],
-                    datasets: [{ data: [25, 22, 15, 10, 18, 10], backgroundColor: [C.fire, C.glaze, C.green, C.orange, C.purple, C.slate], borderWidth: 0 }]
+                    labels: ['宋代', '元代', '明代', '清代', '唐五代', '新石器彩陶', '其他'],
+                    datasets: [{ 
+                        data: [22, 11, 24, 30, 7, 4, 2], 
+                        backgroundColor: [C.celadon, C.blueandwhite, C.fire, C.earth, '#A0522D', '#9370DB', '#607D8B'], 
+                        borderWidth: 0 
+                    }]
                 },
                 options: {
                     ...ChartConfig.darkOptions,
@@ -171,9 +494,68 @@
                         ...ChartConfig.darkOptions.plugins,
                         title: {
                             display: true,
-                            text: '中国陶瓷出口市场分布',
+                            text: '国家级博物馆馆藏瓷器朝代占比',
                             font: { size: 14, weight: 'bold' },
                             color: '#fff'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context){
+                                    const name = context.label;
+                                    const per = context.raw + "%";
+                                    let tip = "";
+                                    if(name=="宋代") tip="：青瓷巅峰，五大名窑百花齐放";
+                                    if(name=="元代") tip="：青花瓷诞生，外销瓷走向世界";
+                                    if(name=="明代") tip="：洪武至万历，五彩、斗彩兴起";
+                                    if(name=="清代") tip="：康雍乾粉彩、珐琅彩工艺极致";
+                                    if(name=="唐五代") tip="：唐三彩、秘色青瓷代表";
+                                    if(name=="新石器彩陶") tip="：原始陶器，中华文明陶瓷起源";
+                                    return `${name} 占比 ${per}${tip}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 4.3 窑系柱状图（核心点击交互）
+            kilnChart = new Chart(document.getElementById('kilnSystemBarChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['汝窑', '官窑', '哥窑', '钧窑', '定窑', '龙泉窑', '景德镇窑', '磁州窑'],
+                    datasets: [{
+                        label: '馆藏文物样本数',
+                        data: [116, 184, 92, 347, 412, 863, 3260, 745],
+                        backgroundColor: [
+                            '#94B8D9','#5077A3','#A89078','#C25448','#EAE8E0',
+                            C.celadon, C.blueandwhite, '#D4A76A'
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    ...ChartConfig.darkOptions,
+                    plugins: {
+                        title: { display:true, text:'各大窑系馆藏标本数量', color:'#fff', font:{size:14, weight:'bold'} },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context){
+                                    return `标本数量：${context.raw}件 | 点击查看窑口完整历史`
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero:true, grid:{color:'rgba(255,255,255,0.1)'} }
+                    },
+                    onClick: function(e, items){
+                        if(items.length > 0){
+                            const index = items[0].index;
+                            const kilnName = kilnChart.data.labels[index];
+                            const info = kilnInfo[kilnName];
+                            modalTitle.innerText = info.title;
+                            modalContent.innerText = info.content;
+                            kilnModal.classList.remove('hidden');
                         }
                     }
                 }
