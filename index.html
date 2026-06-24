@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瓷韵千年 - 陶瓷烧制工艺交互展示</title>
+    <meta name="description" content="探索中华陶瓷文化，了解从泥土到精美瓷器的千年工艺传承">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clay: '#8B5A2B',
+                        porcelain: '#F5F5F0',
+                        glaze: '#4A90E2',
+                        fire: '#E64A19',
+                        earth: '#D2B48C',
+                        ink: '#2C3E50'
+                    },
+                    fontFamily: {
+                        serif: ['Georgia', 'Times New Roman', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-porcelain text-ink font-sans">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-sm py-4" id="navbar">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <i class="fa fa-fire text-fire text-2xl"></i>
+                <h1 class="text-2xl font-serif font-bold text-clay">瓷韵千年</h1>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link hover:text-fire transition-colors active">首页</a>
+                <a href="process.html" class="nav-link hover:text-fire transition-colors">烧制流程</a>
+                <a href="data.html" class="nav-link hover:text-fire transition-colors">数据统计</a>
+                <a href="gallery.html" class="nav-link hover:text-fire transition-colors">成品展示</a>
+            </div>
+            <button class="md:hidden text-ink text-xl" id="menuToggle"><i class="fa fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- 移动端菜单 -->
+    <div class="fixed inset-0 bg-black/50 z-40 hidden" id="mobileMenu">
+        <div class="bg-white h-full w-64 p-6">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-xl font-serif font-bold text-clay">瓷韵千年</h2>
+                <button id="closeMenu"><i class="fa fa-times text-xl"></i></button>
+            </div>
+            <div class="flex flex-col space-y-6">
+                <a href="index.html" class="mobile-nav-link text-lg hover:text-fire transition-colors active">首页</a>
+                <a href="process.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">烧制流程</a>
+                <a href="data.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">数据统计</a>
+                <a href="gallery.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">成品展示</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 英雄区域 -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-black/20 z-10"></div>
+            <img src="images/1.jpg" alt="陶瓷背景" class="w-full h-full object-cover">
+        </div>
+        <div class="container mx-auto px-6 z-10 text-center">
+            <h1 class="text-[clamp(3rem,8vw,6rem)] font-serif font-bold text-white mb-6 leading-tight">瓷韵千年</h1>
+            <p class="text-[clamp(1.2rem,3vw,1.8rem)] text-white/90 mb-12 max-w-3xl mx-auto">
+                探索泥土如何在烈火中涅槃，见证中华文明的璀璨瑰宝
+            </p>
+            <a href="process.html" class="inline-block bg-fire hover:bg-fire/90 text-white font-medium px-8 py-4 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                开始探索 <i class="fa fa-arrow-down ml-2"></i>
+            </a>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fa fa-chevron-down text-white text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- 快速入口 -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-serif font-bold text-clay mb-4">探索陶瓷世界</h2>
+                <p class="text-lg text-ink/70 max-w-2xl mx-auto">从原料到成品，从数据到艺术，全方位了解陶瓷烧制的奥秘</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <a href="process.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 rounded-full bg-clay/10 flex items-center justify-center mb-6 group-hover:bg-clay group-hover:text-white transition-colors">
+                        <i class="fa fa-fire text-clay text-2xl group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-clay mb-3">烧制流程</h3>
+                    <p class="text-ink/70">8道核心工序，从泥土到精美瓷器的完整蜕变过程</p>
+                </a>
+                <a href="data.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 rounded-full bg-glaze/10 flex items-center justify-center mb-6 group-hover:bg-glaze group-hover:text-white transition-colors">
+                        <i class="fa fa-bar-chart text-glaze text-2xl group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-clay mb-3">数据统计</h3>
+                    <p class="text-ink/70">全球产量趋势、出口市场分布与工艺数据洞察</p>
+                </a>
+                <a href="gallery.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 rounded-full bg-fire/10 flex items-center justify-center mb-6 group-hover:bg-fire group-hover:text-white transition-colors">
+                        <i class="fa fa-image text-fire text-2xl group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-clay mb-3">成品展示</h3>
+                    <p class="text-ink/70">欣赏青花瓷、青瓷、白瓷等中华陶瓷艺术珍品</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-ink text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-6 md:mb-0">
+                    <i class="fa fa-fire text-fire text-2xl"></i>
+                    <h2 class="text-2xl font-serif font-bold">瓷韵千年</h2>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-white/70 hover:text-white"><i class="fa fa-weibo text-xl"></i></a>
+                    <a href="#" class="text-white/70 hover:text-white"><i class="fa fa-wechat text-xl"></i></a>
+                    <a href="#" class="text-white/70 hover:text-white"><i class="fa fa-instagram text-xl"></i></a>
+                </div>
+            </div>
+            <hr class="border-white/20 my-8">
+            <div class="text-center text-white/50 text-sm">
+                <p>© 2026 瓷韵千年 - 陶瓷烧制工艺交互展示平台. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据统计 - 瓷韵千年</title>
+    <meta name="description" content="陶瓷工艺数据洞察：全球产量趋势、出口市场分布与烧制工艺关键数据">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/charts-config.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clay: '#8B5A2B',
+                        porcelain: '#F5F5F0',
+                        glaze: '#4A90E2',
+                        fire: '#E64A19',
+                        earth: '#D2B48C',
+                        ink: '#2C3E50'
+                    },
+                    fontFamily: {
+                        serif: ['Georgia', 'Times New Roman', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-porcelain text-ink font-sans pt-20">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-sm py-4" id="navbar">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <i class="fa fa-fire text-fire text-2xl"></i>
+                <h1 class="text-2xl font-serif font-bold text-clay">瓷韵千年</h1>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link hover:text-fire transition-colors">首页</a>
+                <a href="process.html" class="nav-link hover:text-fire transition-colors">烧制流程</a>
+                <a href="data.html" class="nav-link hover:text-fire transition-colors active">数据统计</a>
+                <a href="gallery.html" class="nav-link hover:text-fire transition-colors">成品展示</a>
+            </div>
+            <button class="md:hidden text-ink text-xl" id="menuToggle"><i class="fa fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- 移动端菜单 -->
+    <div class="fixed inset-0 bg-black/50 z-40 hidden" id="mobileMenu">
+        <div class="bg-white h-full w-64 p-6">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-xl font-serif font-bold text-clay">瓷韵千年</h2>
+                <button id="closeMenu"><i class="fa fa-times text-xl"></i></button>
+            </div>
+            <div class="flex flex-col space-y-6">
+                <a href="index.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">首页</a>
+                <a href="process.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">烧制流程</a>
+                <a href="data.html" class="mobile-nav-link text-lg hover:text-fire transition-colors active">数据统计</a>
+                <a href="gallery.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">成品展示</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 数据统计 -->
+    <section class="py-20 bg-ink text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-serif font-bold mb-4">陶瓷工艺数据洞察</h2>
+                <p class="text-lg text-white/70 max-w-2xl mx-auto">通过数据可视化，深入了解陶瓷烧制工艺的发展历程和技术进步</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
+                    <div class="text-5xl font-bold text-fire mb-2" id="counter1">0</div>
+                    <p class="text-white/80">年陶瓷烧制历史</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
+                    <div class="text-5xl font-bold text-glaze mb-2" id="counter2">0</div>
+                    <p class="text-white/80">℃最高烧制温度</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
+                    <div class="text-5xl font-bold text-clay mb-2" id="counter3">0</div>
+                    <p class="text-white/80">道核心工序</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
+                    <div class="text-5xl font-bold text-green-400 mb-2" id="counter4">0</div>
+                    <p class="text-white/80">%现代成品合格率</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                    <h3 class="text-xl font-bold mb-4">全球陶瓷产量趋势</h3>
+                    <div class="h-80"><canvas id="globalProductionChart"></canvas></div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                    <h3 class="text-xl font-bold mb-4">中国陶瓷出口市场分布</h3>
+                    <div class="h-80"><canvas id="exportChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-ink text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-6 md:mb-0">
+                    <i class="fa fa-fire text-fire text-2xl"></i>
+                    <h2 class="text-2xl font-serif font-bold">瓷韵千年</h2>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-white/70 hover:text-white"><i class="fa fa-weibo text-xl"></i></a>
+                    <a href="#" class="text-white/70 hover:text-white"><i class="fa fa-wechat text-xl"></i></a>
+                    <a href="#" class="text-white/70 hover:text-white"><i class="fa fa-instagram text-xl"></i></a>
+                </div>
+            </div>
+            <hr class="border-white/20 my-8">
+            <div class="text-center text-white/50 text-sm">
+                <p>© 2026 瓷韵千年 - 陶瓷烧制工艺交互展示平台. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        // ==================== 计数器动画 ====================
+        const dataSection = document.querySelector('section');
+        const counterObserver = createScrollObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    animateCounter('counter1', 8000);
+                    animateCounter('counter2', 1400);
+                    animateCounter('counter3', 8);
+                    animateCounter('counter4', 95);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        counterObserver.observe(dataSection);
+
+        // ==================== 图表初始化 ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            const C = ChartConfig.colors;
+
+            // 全球产量趋势
+            new Chart(document.getElementById('globalProductionChart'), ChartConfig.createLineConfig(
+                ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                [
+                    { label: '中国', data: [2500, 2700, 2900, 3100, 3300, 3200, 3500, 3800, 4100, 4400], borderColor: C.fire, backgroundColor: 'rgba(230,74,25,0.1)', fill: true, tension: 0.4 },
+                    { label: '其他国家', data: [1500, 1600, 1700, 1800, 1900, 1800, 1950, 2100, 2250, 2400], borderColor: C.glaze, backgroundColor: 'rgba(74,144,226,0.1)', fill: true, tension: 0.4 }
+                ],
+                '全球陶瓷产量(万吨)',
+                true
+            ));
+
+            // 出口市场分布
+            new Chart(document.getElementById('exportChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['美国', '欧盟', '日本', '韩国', '东南亚', '其他'],
+                    datasets: [{ data: [25, 22, 15, 10, 18, 10], backgroundColor: [C.fire, C.glaze, C.green, C.orange, C.purple, C.slate], borderWidth: 0 }]
+                },
+                options: {
+                    ...ChartConfig.darkOptions,
+                    plugins: {
+                        ...ChartConfig.darkOptions.plugins,
+                        title: {
+                            display: true,
+                            text: '中国陶瓷出口市场分布',
+                            font: { size: 14, weight: 'bold' },
+                            color: '#fff'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
