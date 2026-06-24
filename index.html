@@ -40,8 +40,7 @@
             <div class="hidden md:flex space-x-8">
                 <a href="index.html" class="nav-link hover:text-fire transition-colors active">首页</a>
                 <a href="process.html" class="nav-link hover:text-fire transition-colors">烧制流程</a>
-                <a href="data.html" class="nav-link hover:text-fire transition-colors">数据统计</a>
-                <a href="gallery.html" class="nav-link hover:text-fire transition-colors">成品展示</a>
+                <a href="data.html" class="nav-link hover:text-fire transition-colors">瓷史数据馆</a>
             </div>
             <button class="md:hidden text-ink text-xl" id="menuToggle"><i class="fa fa-bars"></i></button>
         </div>
@@ -57,8 +56,7 @@
             <div class="flex flex-col space-y-6">
                 <a href="index.html" class="mobile-nav-link text-lg hover:text-fire transition-colors active">首页</a>
                 <a href="process.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">烧制流程</a>
-                <a href="data.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">数据统计</a>
-                <a href="gallery.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">成品展示</a>
+                <a href="data.html" class="mobile-nav-link text-lg hover:text-fire transition-colors">瓷史数据馆</a>
             </div>
         </div>
     </div>
@@ -83,14 +81,15 @@
         </div>
     </section>
 
-    <!-- 快速入口 -->
+    <!-- 快速入口（已修改，两张卡片水平居中） -->
     <section class="py-20">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-serif font-bold text-clay mb-4">探索陶瓷世界</h2>
                 <p class="text-lg text-ink/70 max-w-2xl mx-auto">从原料到成品，从数据到艺术，全方位了解陶瓷烧制的奥秘</p>
             </div>
-            <div class="grid md:grid-cols-3 gap-8">
+            <!-- 核心修改：md两列网格 + 最大宽度居中容器 -->
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <a href="process.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                     <div class="w-16 h-16 rounded-full bg-clay/10 flex items-center justify-center mb-6 group-hover:bg-clay group-hover:text-white transition-colors">
                         <i class="fa fa-fire text-clay text-2xl group-hover:text-white"></i>
@@ -102,15 +101,8 @@
                     <div class="w-16 h-16 rounded-full bg-glaze/10 flex items-center justify-center mb-6 group-hover:bg-glaze group-hover:text-white transition-colors">
                         <i class="fa fa-bar-chart text-glaze text-2xl group-hover:text-white"></i>
                     </div>
-                    <h3 class="text-2xl font-serif font-bold text-clay mb-3">数据统计</h3>
-                    <p class="text-ink/70">全球产量趋势、出口市场分布与工艺数据洞察</p>
-                </a>
-                <a href="gallery.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                    <div class="w-16 h-16 rounded-full bg-fire/10 flex items-center justify-center mb-6 group-hover:bg-fire group-hover:text-white transition-colors">
-                        <i class="fa fa-image text-fire text-2xl group-hover:text-white"></i>
-                    </div>
-                    <h3 class="text-2xl font-serif font-bold text-clay mb-3">成品展示</h3>
-                    <p class="text-ink/70">欣赏青花瓷、青瓷、白瓷等中华陶瓷艺术珍品</p>
+                    <h3 class="text-2xl font-serif font-bold text-clay mb-3">瓷史数据馆</h3>
+                    <p class="text-ink/70">基于检测公开数据集，梳理千年来陶瓷发展脉络</p>
                 </a>
             </div>
         </div>
