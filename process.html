@@ -209,112 +209,126 @@
         </div>
 
         <div class="max-w-6xl mx-auto px-6">
-            <!-- 1. 原料准备 瓷土淘洗 -->
+            <!-- 1. 原料准备【左：文字卡片+说明块 右：图片+图表 匹配截图】 -->
             <div id="section1" class="process-section mb-36">
-                <div class="grid md:grid-cols-2 gap-16 items-center">
-                    <div class="process-card rounded-2xl p-8 shadow-card">
-                        <div class="flex items-center mb-8">
-                            <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#8B5A2B,#B8956C)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
-                                1
-                            </div>
-                            <h3 class="text-3xl font-serif font-bold text-clay">原料准备</h3>
-                        </div>
-                        <p class="text-lg mb-8 leading-relaxed text-inkLight">陶瓷的主要原料是瓷土，又称高岭土。优质的瓷土需要经过精选、淘洗、粉碎、过筛等多道工序，去除杂质，提高纯度。不同产地的瓷土成分差异会直接影响瓷器的质地和色泽。</p>
-                        <ul class="space-y-4">
-                            <li class="flex items-start"><i class="fa fa-check-circle text-green-500 mt-1 mr-3 text-lg"></i><span>精选高岭土，氧化铝含量≥35%</span></li>
-                            <li class="flex items-start"><i class="fa fa-check-circle text-green-500 mt-1 mr-3 text-lg"></i><span>球磨粉碎至200目以上细度</span></li>
-                            <li class="flex items-start"><i class="fa fa-check-circle text-green-500 mt-1 mr-3 text-lg"></i><span>除铁处理，铁含量&lt;0.5%</span></li>
-                            <li class="flex items-start"><i class="fa fa-check-circle text-green-500 mt-1 mr-3 text-lg"></i><span>陈腐2-4周，提高泥料可塑性</span></li>
-                        </ul>
-                    </div>
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+                    <!-- 左侧：文字卡片 + 红框说明文字（箭头位置） -->
                     <div class="space-y-6">
-                        <!-- 稳定无防盗链 陶瓷原料实拍图 -->
-                        <img src="./images/工序一.jpg" alt="原料淘洗炼制工序实拍" class="process-img" loading="lazy">
-                        <div class="process-card rounded-2xl p-6 shadow-card">
-                            <canvas id="rawMaterialChart"></canvas>
+                        <div class="process-card rounded-2xl p-8 shadow-card">
+                            <div class="flex items-center mb-8">
+                                <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#8B5A2B,#B8956C)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
+                                    1
+                                </div>
+                                <h3 class="text-3xl font-serif font-bold text-clay">原料准备</h3>
+                            </div>
+                            <p class="text-lg mb-8 leading-relaxed text-inkLight">陶瓷的主要原料是瓷土，又称高岭土。优质的瓷土需要经过精选、淘洗、粉碎、过筛等多道工序，去除杂质，提高纯度。不同产地的瓷土成分差异会直接影响瓷器的质地和色泽。</p>
+                            <ul class="space-y-4">
+                                <li class="flex items-start"><i class="fa fa-check-circle text-green-500 mt-1 mr-3 text-lg"></i><span>精选高岭土，氧化铝含量≥35%</span></li>
+                                <li class="flex items-start"><i class="fa fa-check-circle text-green-500 mt-1 mr-3 text-lg"></i><span>球磨粉碎至200目以上细度</span></li>
+                                <li class="flex items-start"><i class="fa fa-check-circle text-green-500 mt-1 mr-3 text-lg"></i><span>除铁处理，铁含量&lt;0.5%</span></li>
+                                <li class="flex items-start"><i class="fa fa-check-circle text-green-500 mt-1 mr-3 text-lg"></i><span>陈腐2-4周，提高泥料可塑性</span></li>
+                            </ul>
                         </div>
+                        <!-- 红框说明块 放在文字卡片下方（截图箭头位置） -->
                         <div class="bg-gradient-to-r earth/20 porcelainDark/40 rounded-xl p-6 border border-earth/20">
                             <h4 class="font-bold text-xl mb-3 text-clay">原料成分对比</h4>
                             <p class="text-sm text-inkLight leading-relaxed">景德镇高岭土以其高铝低铁的特性闻名于世，是制作高档瓷器的理想原料。其独特的矿物组成赋予了瓷器"白如玉、明如镜、薄如纸、声如磬"的特点。</p>
                         </div>
                     </div>
+                    <!-- 右侧：图片 + 图表 -->
+                    <div class="space-y-6">
+                        <img src="./images/工序一.jpg" alt="原料淘洗炼制工序实拍" class="process-img" loading="lazy">
+                        <div class="process-card rounded-2xl p-6 shadow-card">
+                            <canvas id="rawMaterialChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 2. 成型 手工拉坯 -->
+            <!-- 2. 成型【左：图片+图表 右：文字卡片+说明块】 -->
             <div id="section2" class="process-section mb-36 opacity-0 translate-y-10">
-                <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+                    <!-- 左侧：图片 + 图表 -->
                     <div class="space-y-6">
                         <img src="./images/工序二.jpg" alt="手工拉坯成型实拍" class="process-img" loading="lazy">
                         <div class="process-card rounded-2xl p-6 shadow-card mb-6">
                             <canvas id="formingChart"></canvas>
+                        </div>
+                    </div>
+                    <!-- 右侧：文字卡片 + 说明块 -->
+                    <div class="space-y-6">
+                        <div class="process-card rounded-2xl p-8 shadow-card">
+                            <div class="flex items-center mb-8">
+                                <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#8B5A2B,#B8956C)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
+                                    2
+                                </div>
+                                <h3 class="text-3xl font-serif font-bold text-clay">成型工艺</h3>
+                            </div>
+                            <p class="text-lg mb-8 leading-relaxed text-inkLight">成型是将泥料制成各种形状坯体的过程。传统方法有拉坯、捏塑、雕刻等，现代工业生产则广泛采用注浆、旋压、滚压等机械化工艺。每种方法都有其适用范围和特点。</p>
+                            <div class="grid grid-cols-2 gap-5">
+                                <div class="bg-white rounded-xl p-5 shadow-sm border border-earth/10 hover:shadow-md transition-shadow">
+                                    <h5 class="font-bold mb-2 text-clay">手工成型</h5>
+                                    <p class="text-sm text-inkLight">适合艺术创作和个性化产品，每件作品独一无二</p>
+                                </div>
+                                <div class="bg-white rounded-xl p-5 shadow-sm border border-earth/10 hover:shadow-md transition-shadow">
+                                    <h5 class="font-bold mb-2 text-clay">机械成型</h5>
+                                    <p class="text-sm text-inkLight">适合大批量生产，产品精度高，一致性好</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="bg-gradient-to-r earth/20 porcelainDark/40 rounded-xl p-6 border border-earth/20">
                             <h4 class="font-bold text-xl mb-3 text-clay">成型工艺发展</h4>
                             <p class="text-sm text-inkLight leading-relaxed">从手工拉坯到现代注浆成型，陶瓷成型技术经历了数千年的演变。现代工艺在保持传统精髓的同时，大大提高了生产效率和产品一致性。</p>
                         </div>
                     </div>
-                    <div class="process-card rounded-2xl p-8 shadow-card">
-                        <div class="flex items-center mb-8">
-                            <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#8B5A2B,#B8956C)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
-                                2
-                            </div>
-                            <h3 class="text-3xl font-serif font-bold text-clay">成型工艺</h3>
-                        </div>
-                        <p class="text-lg mb-8 leading-relaxed text-inkLight">成型是将泥料制成各种形状坯体的过程。传统方法有拉坯、捏塑、雕刻等，现代工业生产则广泛采用注浆、旋压、滚压等机械化工艺。每种方法都有其适用范围和特点。</p>
-                        <div class="grid grid-cols-2 gap-5">
-                            <div class="bg-white rounded-xl p-5 shadow-sm border border-earth/10 hover:shadow-md transition-shadow">
-                                <h5 class="font-bold mb-2 text-clay">手工成型</h5>
-                                <p class="text-sm text-inkLight">适合艺术创作和个性化产品，每件作品独一无二</p>
-                            </div>
-                            <div class="bg-white rounded-xl p-5 shadow-sm border border-earth/10 hover:shadow-md transition-shadow">
-                                <h5 class="font-bold mb-2 text-clay">机械成型</h5>
-                                <p class="text-sm text-inkLight">适合大批量生产，产品精度高，一致性好</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- 3. 干燥 晾坯 -->
+            <!-- 3. 干燥【左：文字卡片+说明块 右：图片+图表】 -->
             <div id="section3" class="process-section mb-36 opacity-0 translate-y-10">
-                <div class="grid md:grid-cols-2 gap-16 items-center">
-                    <div class="process-card rounded-2xl p-8 shadow-card">
-                        <div class="flex items-center mb-8">
-                            <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#8B5A2B,#B8956C)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
-                                3
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+                    <div class="space-y-6">
+                        <div class="process-card rounded-2xl p-8 shadow-card">
+                            <div class="flex items-center mb-8">
+                                <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#8B5A2B,#B8956C)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
+                                    3
+                                </div>
+                                <h3 class="text-3xl font-serif font-bold text-clay">坯体干燥</h3>
                             </div>
-                            <h3 class="text-3xl font-serif font-bold text-clay">坯体干燥</h3>
+                            <p class="text-lg mb-8 leading-relaxed text-inkLight">干燥是去除坯体中水分的过程，直接影响产品质量。干燥过快会导致坯体开裂、变形，过慢则影响生产效率。现代干燥技术能够精确控制温湿度，确保干燥过程均匀稳定。</p>
+                            <div class="space-y-5">
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-sm font-medium">自然干燥</span>
+                                        <span class="text-sm text-inkLight">7-15天</span>
+                                    </div>
+                                    <div class="w-full bg-[#dddddd] rounded-full h-4">
+                                        <div class="bg-[linear-gradient(90deg,#8B5A2B,#B8956C)] h-4 rounded-full" style="width: 15%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-sm font-medium">热风干燥</span>
+                                        <span class="text-sm text-inkLight">24-48小时</span>
+                                    </div>
+                                    <div class="w-full bg-[#dddddd] rounded-full h-4">
+                                        <div class="bg-[linear-gradient(90deg,#8B5A2B,#B8956C)] h-4 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-sm font-medium">微波干燥</span>
+                                        <span class="text-sm text-inkLight">1-3小时</span>
+                                    </div>
+                                    <div class="w-full bg-[#dddddd] rounded-full h-4">
+                                        <div class="bg-[linear-gradient(90deg,#8B5A2B,#B8956C)] h-4 rounded-full" style="width: 95%"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <p class="text-lg mb-8 leading-relaxed text-inkLight">干燥是去除坯体中水分的过程，直接影响产品质量。干燥过快会导致坯体开裂、变形，过慢则影响生产效率。现代干燥技术能够精确控制温湿度，确保干燥过程均匀稳定。</p>
-                        <div class="space-y-5">
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="text-sm font-medium">自然干燥</span>
-                                    <span class="text-sm text-inkLight">7-15天</span>
-                                </div>
-                                <div class="w-full bg-[#dddddd] rounded-full h-4">
-                                    <div class="bg-[linear-gradient(90deg,#8B5A2B,#B8956C)] h-4 rounded-full" style="width: 15%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="text-sm font-medium">热风干燥</span>
-                                    <span class="text-sm text-inkLight">24-48小时</span>
-                                </div>
-                                <div class="w-full bg-[#dddddd] rounded-full h-4">
-                                    <div class="bg-[linear-gradient(90deg,#8B5A2B,#B8956C)] h-4 rounded-full" style="width: 60%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="text-sm font-medium">微波干燥</span>
-                                    <span class="text-sm text-inkLight">1-3小时</span>
-                                </div>
-                                <div class="w-full bg-[#dddddd] rounded-full h-4">
-                                    <div class="bg-[linear-gradient(90deg,#8B5A2B,#B8956C)] h-4 rounded-full" style="width: 95%"></div>
-                                </div>
-                            </div>
+                        <div class="bg-gradient-to-r earth/20 porcelainDark/40 rounded-xl p-6 border border-earth/20">
+                            <h4 class="font-bold text-xl mb-3 text-clay">干燥曲线分析</h4>
+                            <p class="text-sm text-inkLight leading-relaxed">理想的干燥过程分为三个阶段：升速干燥、等速干燥和降速干燥。控制每个阶段的温湿度和风速，能够最大限度地减少干燥缺陷。</p>
                         </div>
                     </div>
                     <div class="space-y-6">
@@ -322,72 +336,76 @@
                         <div class="process-card rounded-2xl p-6 shadow-card mb-6">
                             <canvas id="dryingChart"></canvas>
                         </div>
-                        <div class="bg-gradient-to-r earth/20 porcelainDark/40 rounded-xl p-6 border border-earth/20">
-                            <h4 class="font-bold text-xl mb-3 text-clay">干燥曲线分析</h4>
-                            <p class="text-sm text-inkLight leading-relaxed">理想的干燥过程分为三个阶段：升速干燥、等速干燥和降速干燥。控制每个阶段的温湿度和风速，能够最大限度地减少干燥缺陷。</p>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 4. 素烧 匣钵窑炉 -->
+            <!-- 4. 素烧【左：图片+图表 右：文字卡片+说明块】 -->
             <div id="section4" class="process-section mb-36 opacity-0 translate-y-10">
-                <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="grid md:grid-cols-2 gap-16 items-start">
                     <div class="space-y-6">
                         <img src="./images/工序四.jpg" alt="素烧窑匣钵入窑实拍" class="process-img" loading="lazy">
                         <div class="process-card rounded-2xl p-6 shadow-card mb-6">
                             <canvas id="bisqueFiringChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="process-card rounded-2xl p-8 shadow-card">
+                            <div class="flex items-center mb-8">
+                                <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#E64A19,#FF7043)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
+                                    4
+                                </div>
+                                <h3 class="text-3xl font-serif font-bold text-clay">素烧工艺</h3>
+                            </div>
+                            <p class="text-lg mb-8 leading-relaxed text-inkLight">素烧是陶瓷烧制的第一道火，将干燥后的坯体在低温下煅烧，使其硬化并具有一定的强度。素烧后的坯体称为"素胎"，质地疏松多孔，能够很好地吸附釉料。</p>
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-fire/10">
+                                <h5 class="font-bold mb-4 text-clay text-lg">素烧的主要作用</h5>
+                                <ul class="space-y-3 text-sm text-inkLight">
+                                    <li class="flex items-start"><i class="fa fa-angle-right text-fire mt-1 mr-3"></i><span>排除坯体中的结晶水和有机物</span></li>
+                                    <li class="flex items-start"><i class="fa fa-angle-right text-fire mt-1 mr-3"></i><span>使坯体初步烧结，提高机械强度</span></li>
+                                    <li class="flex items-start"><i class="fa fa-angle-right text-fire mt-1 mr-3"></i><span>形成多孔结构，利于釉料吸附</span></li>
+                                    <li class="flex items-start"><i class="fa fa-angle-right text-fire mt-1 mr-3"></i><span>减少釉烧过程中的变形和开裂</span></li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="bg-gradient-to-r fire/10 porcelainDark/40 rounded-xl p-6 border border-fire/20">
                             <h4 class="font-bold text-xl mb-3 text-fire">素烧温度曲线</h4>
                             <p class="text-sm text-inkLight leading-relaxed">素烧通常在700-900℃进行，使坯体初步烧结，提高强度和吸水性，便于后续施釉操作。升温速度和保温时间是素烧质量的关键控制参数。</p>
                         </div>
                     </div>
-                    <div class="process-card rounded-2xl p-8 shadow-card">
-                        <div class="flex items-center mb-8">
-                            <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#E64A19,#FF7043)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
-                                4
-                            </div>
-                            <h3 class="text-3xl font-serif font-bold text-clay">素烧工艺</h3>
-                        </div>
-                        <p class="text-lg mb-8 leading-relaxed text-inkLight">素烧是陶瓷烧制的第一道火，将干燥后的坯体在低温下煅烧，使其硬化并具有一定的强度。素烧后的坯体称为"素胎"，质地疏松多孔，能够很好地吸附釉料。</p>
-                        <div class="bg-white rounded-xl p-6 shadow-sm border border-fire/10">
-                            <h5 class="font-bold mb-4 text-clay text-lg">素烧的主要作用</h5>
-                            <ul class="space-y-3 text-sm text-inkLight">
-                                <li class="flex items-start"><i class="fa fa-angle-right text-fire mt-1 mr-3"></i><span>排除坯体中的结晶水和有机物</span></li>
-                                <li class="flex items-start"><i class="fa fa-angle-right text-fire mt-1 mr-3"></i><span>使坯体初步烧结，提高机械强度</span></li>
-                                <li class="flex items-start"><i class="fa fa-angle-right text-fire mt-1 mr-3"></i><span>形成多孔结构，利于釉料吸附</span></li>
-                                <li class="flex items-start"><i class="fa fa-angle-right text-fire mt-1 mr-3"></i><span>减少釉烧过程中的变形和开裂</span></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- 5. 施釉 喷釉工艺 -->
+            <!-- 5. 施釉【左：文字卡片+说明块 右：图片+图表】 -->
             <div id="section5" class="process-section mb-36 opacity-0 translate-y-10">
-                <div class="grid md:grid-cols-2 gap-16 items-center">
-                    <div class="process-card rounded-2xl p-8 shadow-card">
-                        <div class="flex items-center mb-8">
-                            <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#4A90E2,#71b0f0)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
-                                5
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+                    <div class="space-y-6">
+                        <div class="process-card rounded-2xl p-8 shadow-card">
+                            <div class="flex items-center mb-8">
+                                <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#4A90E2,#71b0f0)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
+                                    5
+                                </div>
+                                <h3 class="text-3xl font-serif font-bold text-clay">施釉工艺</h3>
                             </div>
-                            <h3 class="text-3xl font-serif font-bold text-clay">施釉工艺</h3>
+                            <p class="text-lg mb-8 leading-relaxed text-inkLight">施釉是在素胎表面覆盖一层玻璃质釉层的过程。釉层不仅能美化瓷器，还能提高其机械强度、化学稳定性和热稳定性。不同的施釉方法会产生不同的釉面效果。</p>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="bg-white rounded-xl p-5 shadow-sm text-center border border-glaze/10 hover:shadow-md transition-shadow">
+                                    <i class="fa fa-tint text-glaze text-2xl mb-3"></i>
+                                    <h6 class="font-bold text-sm text-clay">浸釉</h6>
+                                </div>
+                                <div class="bg-white rounded-xl p-5 shadow-sm text-center border border-glaze/10 hover:shadow-md transition-shadow">
+                                    <i class="fa fa-spray-can text-glaze text-2xl mb-3"></i>
+                                    <h6 class="font-bold text-sm text-clay">喷釉</h6>
+                                </div>
+                                <div class="bg-white rounded-xl p-5 shadow-sm text-center border border-glaze/10 hover:shadow-md transition-shadow">
+                                    <i class="fa fa-paint-brush text-glaze text-2xl mb-3"></i>
+                                    <h6 class="font-bold text-sm text-clay">刷釉</h6>
+                                </div>
+                            </div>
                         </div>
-                        <p class="text-lg mb-8 leading-relaxed text-inkLight">施釉是在素胎表面覆盖一层玻璃质釉层的过程。釉层不仅能美化瓷器，还能提高其机械强度、化学稳定性和热稳定性。不同的施釉方法会产生不同的釉面效果。</p>
-                        <div class="grid grid-cols-3 gap-4">
-                            <div class="bg-white rounded-xl p-5 shadow-sm text-center border border-glaze/10 hover:shadow-md transition-shadow">
-                                <i class="fa fa-tint text-glaze text-2xl mb-3"></i>
-                                <h6 class="font-bold text-sm text-clay">浸釉</h6>
-                            </div>
-                            <div class="bg-white rounded-xl p-5 shadow-sm text-center border border-glaze/10 hover:shadow-md transition-shadow">
-                                <i class="fa fa-spray-can text-glaze text-2xl mb-3"></i>
-                                <h6 class="font-bold text-sm text-clay">喷釉</h6>
-                            </div>
-                            <div class="bg-white rounded-xl p-5 shadow-sm text-center border border-glaze/10 hover:shadow-md transition-shadow">
-                                <i class="fa fa-paint-brush text-glaze text-2xl mb-3"></i>
-                                <h6 class="font-bold text-sm text-clay">刷釉</h6>
-                            </div>
+                        <div class="bg-gradient-to-r glaze/10 porcelainDark/40 rounded-xl p-6 border border-glaze/20">
+                            <h4 class="font-bold text-xl mb-3 text-glaze">釉料成分分析</h4>
+                            <p class="text-sm text-inkLight leading-relaxed">釉料主要由石英、长石、高岭土和助熔剂组成。通过调整配方和添加金属氧化物，可以获得各种颜色和质感的釉面效果。</p>
                         </div>
                     </div>
                     <div class="space-y-6">
@@ -395,67 +413,71 @@
                         <div class="process-card rounded-2xl p-6 shadow-card mb-6">
                             <canvas id="glazeChart"></canvas>
                         </div>
-                        <div class="bg-gradient-to-r glaze/10 porcelainDark/40 rounded-xl p-6 border border-glaze/20">
-                            <h4 class="font-bold text-xl mb-3 text-glaze">釉料成分分析</h4>
-                            <p class="text-sm text-inkLight leading-relaxed">釉料主要由石英、长石、高岭土和助熔剂组成。通过调整配方和添加金属氧化物，可以获得各种颜色和质感的釉面效果。</p>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 6. 釉烧 高温窑炉 -->
+            <!-- 6. 釉烧【左：图片+图表 右：文字卡片+说明块】 -->
             <div id="section6" class="process-section mb-36 opacity-0 translate-y-10">
-                <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="grid md:grid-cols-2 gap-16 items-start">
                     <div class="space-y-6">
                         <img src="./images/工序六.jpg" alt="高温柴窑釉烧烧制实拍" class="process-img" loading="lazy">
                         <div class="process-card rounded-2xl p-6 shadow-card mb-6">
                             <canvas id="glazeFiringChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="process-card rounded-2xl p-8 shadow-card">
+                            <div class="flex items-center mb-8">
+                                <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#E64A19,#FF7043)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
+                                    6
+                                </div>
+                                <h3 class="text-3xl font-serif font-bold text-clay">釉烧工艺</h3>
+                            </div>
+                            <p class="text-lg mb-8 leading-relaxed text-inkLight">釉烧是陶瓷烧制的核心环节，在高温下釉料熔融形成玻璃质层，同时与坯体发生化学反应，形成牢固的结合。釉烧过程中，窑内的气氛（氧化或还原）对瓷器的最终颜色和质感有决定性影响。</p>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-100">
+                                    <span class="font-medium">氧化焰烧制</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs">适合白瓷、青瓷</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-100">
+                                    <span class="font-medium">还原焰烧制</span>
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">适合青花瓷、釉里红</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="bg-gradient-to-r fire/10 porcelainDark/40 rounded-xl p-6 border border-fire/20">
                             <h4 class="font-bold text-xl mb-3 text-fire">釉烧温度曲线</h4>
                             <p class="text-sm text-inkLight leading-relaxed">釉烧是陶瓷烧制的关键工序，温度通常在1200-1400℃。精确控制升温速度、最高温度和保温时间，能够确保釉面光滑平整，色泽均匀。</p>
                         </div>
                     </div>
-                    <div class="process-card rounded-2xl p-8 shadow-card">
-                        <div class="flex items-center mb-8">
-                            <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#E64A19,#FF7043)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
-                                6
-                            </div>
-                            <h3 class="text-3xl font-serif font-bold text-clay">釉烧工艺</h3>
-                        </div>
-                        <p class="text-lg mb-8 leading-relaxed text-inkLight">釉烧是陶瓷烧制的核心环节，在高温下釉料熔融形成玻璃质层，同时与坯体发生化学反应，形成牢固的结合。釉烧过程中，窑内的气氛（氧化或还原）对瓷器的最终颜色和质感有决定性影响。</p>
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-100">
-                                <span class="font-medium">氧化焰烧制</span>
-                                <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs">适合白瓷、青瓷</span>
-                            </div>
-                            <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-100">
-                                <span class="font-medium">还原焰烧制</span>
-                                <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">适合青花瓷、釉里红</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- 7. 冷却 开窑取瓷 -->
+            <!-- 7. 冷却【左：文字卡片+说明块 右：图片+图表】 -->
             <div id="section7" class="process-section mb-36 opacity-0 translate-y-10">
-                <div class="grid md:grid-cols-2 gap-16 items-center">
-                    <div class="process-card rounded-2xl p-8 shadow-card">
-                        <div class="flex items-center mb-8">
-                            <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#3b82f6,#72b2ff)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
-                                7
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+                    <div class="space-y-6">
+                        <div class="process-card rounded-2xl p-8 shadow-card">
+                            <div class="flex items-center mb-8">
+                                <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#3b82f6,#72b2ff)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
+                                    7
+                                </div>
+                                <h3 class="text-3xl font-serif font-bold text-clay">冷却过程</h3>
                             </div>
-                            <h3 class="text-3xl font-serif font-bold text-clay">冷却过程</h3>
+                            <p class="text-lg mb-8 leading-relaxed text-inkLight">冷却是烧制过程的最后阶段，同样至关重要。冷却速度过快会导致釉面开裂、坯釉分离，过慢则会影响生产效率。不同的瓷器品种需要不同的冷却曲线。</p>
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-blue-100">
+                                <h5 class="font-bold mb-4 text-clay text-lg">冷却阶段划分</h5>
+                                <ul class="space-y-3 text-sm text-inkLight">
+                                    <li class="flex items-start"><i class="fa fa-snowflake-o text-blue-400 mt-1 mr-3 text-lg"></i><span><strong>急冷阶段</strong>：1300℃→700℃，快速冷却防止釉面析晶</span></li>
+                                    <li class="flex items-start"><i class="fa fa-snowflake-o text-blue-300 mt-1 mr-3 text-lg"></i><span><strong>缓冷阶段</strong>：700℃→400℃，缓慢冷却避免热应力</span></li>
+                                    <li class="flex items-start"><i class="fa fa-snowflake-o text-blue-200 mt-1 mr-3 text-lg"></i><span><strong>快冷阶段</strong>：400℃→室温，加快冷却提高效率</span></li>
+                                </ul>
+                            </div>
                         </div>
-                        <p class="text-lg mb-8 leading-relaxed text-inkLight">冷却是烧制过程的最后阶段，同样至关重要。冷却速度过快会导致釉面开裂、坯釉分离，过慢则会影响生产效率。不同的瓷器品种需要不同的冷却曲线。</p>
-                        <div class="bg-white rounded-xl p-6 shadow-sm border border-blue-100">
-                            <h5 class="font-bold mb-4 text-clay text-lg">冷却阶段划分</h5>
-                            <ul class="space-y-3 text-sm text-inkLight">
-                                <li class="flex items-start"><i class="fa fa-snowflake-o text-blue-400 mt-1 mr-3 text-lg"></i><span><strong>急冷阶段</strong>：1300℃→700℃，快速冷却防止釉面析晶</span></li>
-                                <li class="flex items-start"><i class="fa fa-snowflake-o text-blue-300 mt-1 mr-3 text-lg"></i><span><strong>缓冷阶段</strong>：700℃→400℃，缓慢冷却避免热应力</span></li>
-                                <li class="flex items-start"><i class="fa fa-snowflake-o text-blue-200 mt-1 mr-3 text-lg"></i><span><strong>快冷阶段</strong>：400℃→室温，加快冷却提高效率</span></li>
-                            </ul>
+                        <div class="bg-gradient-to-r blue-50 porcelainDark/40 rounded-xl p-6 border border-blue-100">
+                            <h4 class="font-bold text-xl mb-3 text-blue-500">冷却速度对比</h4>
+                            <p class="text-sm text-inkLight leading-relaxed">传统柴窑冷却需要3-5天，现代气窑可以精确控制冷却速度，在24小时内完成冷却过程，同时保证产品质量。</p>
                         </div>
                     </div>
                     <div class="space-y-6">
@@ -463,44 +485,42 @@
                         <div class="process-card rounded-2xl p-6 shadow-card mb-6">
                             <canvas id="coolingChart"></canvas>
                         </div>
-                        <div class="bg-gradient-to-r blue-50 porcelainDark/40 rounded-xl p-6 border border-blue-100">
-                            <h4 class="font-bold text-xl mb-3 text-blue-500">冷却速度对比</h4>
-                            <p class="text-sm text-inkLight leading-relaxed">传统柴窑冷却需要3-5天，现代气窑可以精确控制冷却速度，在24小时内完成冷却过程，同时保证产品质量。</p>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 8. 成品检验 灯光质检 -->
+            <!-- 8. 成品检验【左：图片+图表 右：文字卡片+说明块】 -->
             <div id="section8" class="process-section mb-24 opacity-0 translate-y-10">
-                <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="grid md:grid-cols-2 gap-16 items-start">
                     <div class="space-y-6">
                         <img src="./images/工序八.jpg" alt="匠人灯光下瓷器成品检验实拍" class="process-img" loading="lazy">
                         <div class="process-card rounded-2xl p-6 shadow-card mb-6">
                             <canvas id="qualityChart"></canvas>
                         </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="process-card rounded-2xl p-8 shadow-card">
+                            <div class="flex items-center mb-8">
+                                <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#22c55e,#5ce08c)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
+                                    8
+                                </div>
+                                <h3 class="text-3xl font-serif font-bold text-clay">成品检验</h3>
+                            </div>
+                            <p class="text-lg mb-8 leading-relaxed text-inkLight">出窑后的瓷器需要经过严格的质量检验，剔除有缺陷的产品。检验项目包括外观质量、尺寸精度、釉面质量、强度测试等。只有符合标准的产品才能进入市场。</p>
+                            <div class="grid grid-cols-2 gap-5">
+                                <div class="bg-white rounded-xl p-5 shadow-sm border border-green-100 hover:shadow-md transition-shadow">
+                                    <h5 class="font-bold mb-2 text-clay">外观检验</h5>
+                                    <p class="text-sm text-inkLight">检查变形、开裂、缺釉、斑点、气泡等缺陷</p>
+                                </div>
+                                <div class="bg-white rounded-xl p-5 shadow-sm border border-green-100 hover:shadow-md transition-shadow">
+                                    <h5 class="font-bold mb-2 text-clay">性能测试</h5>
+                                    <p class="text-sm text-inkLight">测试吸水率、热稳定性、机械强度等指标</p>
+                                </div>
+                            </div>
+                        </div>
                         <div class="bg-gradient-to-r green-50 porcelainDark/40 rounded-xl p-6 border border-green-100">
                             <h4 class="font-bold text-xl mb-3 text-green-600">质量合格率统计</h4>
                             <p class="text-sm text-inkLight leading-relaxed">现代陶瓷生产通过严格的质量控制体系，将成品合格率从传统工艺的不足50%提高到了95%以上。但顶级艺术瓷的成品率仍然较低，这也是其珍贵的原因之一。</p>
-                        </div>
-                    </div>
-                    <div class="process-card rounded-2xl p-8 shadow-card">
-                        <div class="flex items-center mb-8">
-                            <div class="w-14 h-14 min-h-14 rounded-full overflow-visible bg-[linear-gradient(145deg,#22c55e,#5ce08c)] text-white flex items-center justify-center text-2xl font-bold mr-5 shadow-md">
-                                8
-                            </div>
-                            <h3 class="text-3xl font-serif font-bold text-clay">成品检验</h3>
-                        </div>
-                        <p class="text-lg mb-8 leading-relaxed text-inkLight">出窑后的瓷器需要经过严格的质量检验，剔除有缺陷的产品。检验项目包括外观质量、尺寸精度、釉面质量、强度测试等。只有符合标准的产品才能进入市场。</p>
-                        <div class="grid grid-cols-2 gap-5">
-                            <div class="bg-white rounded-xl p-5 shadow-sm border border-green-100 hover:shadow-md transition-shadow">
-                                <h5 class="font-bold mb-2 text-clay">外观检验</h5>
-                                <p class="text-sm text-inkLight">检查变形、开裂、缺釉、斑点、气泡等缺陷</p>
-                            </div>
-                            <div class="bg-white rounded-xl p-5 shadow-sm border border-green-100 hover:shadow-md transition-shadow">
-                                <h5 class="font-bold mb-2 text-clay">性能测试</h5>
-                                <p class="text-sm text-inkLight">测试吸水率、热稳定性、机械强度等指标</p>
-                            </div>
                         </div>
                     </div>
                 </div>
