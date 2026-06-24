@@ -63,7 +63,7 @@ window.ChartConfig = {
         }
     },
 
-    // 创建饼图配置
+    // 创建饼图配置（新增取消悬浮放大配置）
     createPieConfig: function(labels, data, colors, title) {
         return {
             type: 'pie',
@@ -77,6 +77,12 @@ window.ChartConfig = {
             },
             options: {
                 ...this.lightOptions,
+                // 核心：关闭鼠标悬浮扇区放大弹出效果
+                elements: {
+                    arc: {
+                        hoverOffset: 0
+                    }
+                },
                 plugins: {
                     ...this.lightOptions.plugins,
                     title: {
@@ -89,7 +95,7 @@ window.ChartConfig = {
         };
     },
 
-    // 创建环形图配置
+    // 创建环形图配置（新增取消悬浮放大配置）
     createDoughnutConfig: function(labels, data, colors, title) {
         return {
             type: 'doughnut',
@@ -103,6 +109,12 @@ window.ChartConfig = {
             },
             options: {
                 ...this.lightOptions,
+                // 核心：关闭鼠标悬浮扇区放大弹出效果
+                elements: {
+                    arc: {
+                        hoverOffset: 0
+                    }
+                },
                 plugins: {
                     ...this.lightOptions.plugins,
                     title: {
@@ -176,24 +188,3 @@ window.ChartConfig = {
         };
     }
 };
-Chart.register({
-
-    id:'pieHoverEffect',
-
-    beforeDatasetDraw(chart){
-
-        const active =
-        chart.getActiveElements();
-
-        if(!active.length) return;
-
-        const arc =
-        chart.getDatasetMeta(
-            active[0].datasetIndex
-        ).data[
-            active[0].index
-        ];
-
-        arc.outerRadius += 18;
-    }
-});
